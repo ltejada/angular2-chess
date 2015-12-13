@@ -36,7 +36,7 @@ module.exports = {
       'angular2/router',
       'angular2/http'
     ],
-    'app': './client/app/bootstrap' // our angular app
+    'app': './client/components/app/bootstrap' // our angular app
   },
 
   // Config for our build files

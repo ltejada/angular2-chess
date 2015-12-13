@@ -8,8 +8,8 @@
     "sourceMap": true
   },
   "files": [
-    "client/app/app.spec.ts",
-    "client/app/app.ts",
-    "client/app/bootstrap.ts"
+    "client/components/app/app.spec.ts",
+    "client/components/app/app.ts",
+    "client/components/app/bootstrap.ts"
   ]
 }

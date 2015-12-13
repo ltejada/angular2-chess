@@ -11,7 +11,7 @@ import {BaseRequestOptions, Http} from 'angular2/http';
 import {MockBackend} from 'angular2/http/testing';
 
 // Load the implementations that should be tested
-import { App, XLarge } from '../../client/app/app';
+import { App, XLarge } from './app';
 
 // Create a test component to test directives
 @Component({
