@@ -40,7 +40,7 @@ module.exports = function(express, db, dm) {
     // ---------------- Games ----------------------------------------
 
     router.get('/games/:userId/all', function(req, res) {
-        console.log('get: /games/'+req.body.userId+'/all')
+        console.log('get: /games/'+req.params.userId+'/all')
         db.Game.find(
             { $or: [ { wplayer: req.params.userId },
                      { bplayer: req.params.userId }
@@ -65,11 +65,14 @@ module.exports = function(express, db, dm) {
                     } else {
                         var new_game = new db.Game({
                             created: new Date(),
+                            limit: parseInt(req.body.limit),
                             wplayer: wplayer._id,
                             wplayers: wplayer.alias,
+                            wplayerElo: wplayer.elo,
                             bplayer: bplayer._id,
                             bplayers: bplayer.alias,
-                            movs: [],
+                            bplayerElo: bplayer.elo,
+                            movs: "",
                             msgs: [] });
                         new_game.save(function (err, game) {
                             if (err) throw (err);
@@ -96,4 +99,5 @@ module.exports = function(express, db, dm) {
 // conchi:         566d6a6ae6f4aeaa263624f3
 //
 // Games: ----------------------------------
-// luis vs conchi: 566d6b310c2c75c126adf34e
+// luis vs conchi: 566da33f62f0b00f2f9f89e7
+// conchi vs luis: 566da35a62f0b00f2f9f89e8

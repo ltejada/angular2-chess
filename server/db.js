@@ -8,12 +8,15 @@ module.exports = function(MONGO_URL) {
             elo: Number,
             photoUrl: String
         })),
-        Game: mongoose.model('Partida', new Schema({
+        Game: mongoose.model('Game', new Schema({
             created: { type: Date, required: true },
             wplayer: Schema.Types.ObjectId,
             wplayers: String,
+            wplayerElo: Number,
             bplayer: Schema.Types.ObjectId,
             bplayers: String,
+            bplayerElo: Number,
+            limit: Number,
             movs: String,
             msgs: [{ msgId: String, msg:String }]
         })),
