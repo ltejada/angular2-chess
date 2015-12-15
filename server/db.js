@@ -17,7 +17,7 @@ module.exports = function(MONGO_URL) {
             bplayers: String,
             bplayerElo: Number,
             limit: Number,
-            movs: String,
+            movs: [{ mov:String }],
             msgs: [{ msgId: String, msg:String }]
         })),
         Message: mongoose.model('Message', new Schema({

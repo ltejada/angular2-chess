@@ -72,7 +72,7 @@ module.exports = function(express, db, dm) {
                             bplayer: bplayer._id,
                             bplayers: bplayer.alias,
                             bplayerElo: bplayer.elo,
-                            movs: "",
+                            movs: [],
                             msgs: [] });
                         new_game.save(function (err, game) {
                             if (err) throw (err);
@@ -90,6 +90,18 @@ module.exports = function(express, db, dm) {
                 })
             }
         })
+    })
+    router.post('/games/:idGame/addMov', function(req, res) {
+        console.log('post: /games/'+req.params.idGame+'/addMov');
+        console.log(util.inspect(req.body));
+        db.Game.findByIdAndUpdate(
+            req.params.idGame,
+            {$push: { movs: { mov: req.body.mov }}},
+            {safe: true, new: true },
+            function(err, game) {
+                if (err) throw (err);
+                return res.json(game)
+            })
     })
 
     return router

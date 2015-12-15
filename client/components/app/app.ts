@@ -3,8 +3,10 @@
  */
 import {Component, View, CORE_DIRECTIVES, AfterViewInit} from 'angular2/angular2';
 import {Http, HTTP_PROVIDERS} from 'angular2/http';
-import {DM, User} from '../../services/dm';
+import {DM, User, Game} from '../../services/dm';
 import {Login} from './login/login';
+import {HeaderApp} from './header/header'
+import {GameView} from './body/game/game-view';
 
 /*
  * Angular Directives
@@ -24,26 +26,27 @@ import {ROUTER_DIRECTIVES} from 'angular2/router';
     <login></login>
   </div>
   <div class="container" *ngIf="dm.user">
-    <div class="row">
-      <div class="col-xs-12">
-        Hello World !
-        <!--app-header></app-header-->
-      </div>
-      <div class="col-xs-12">
-        <!--app-body></app-body-->
-        users: {{ dm.users.length }}
-      </div>
-      <div class="col-xs-12" *ngFor="#game of dm.games">
-          {{ game.wplayer.alias }} vs {{ game.bplayer.alias }}
-      </div>
+    <header-app (gameSelected)="game_selected($event)">
+    </header-app>
+    <game-view *ngIf="dm.games.length>0" [game]="getCurrentGame()">
+    </game-view>
   </div>
-  `, directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES, Login ]
+  `, directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES, Login, HeaderApp, GameView ]
 })
 
 export class App {
-  
+  current_game: Game;
   constructor(public dm: DM) { 
-    
+    this.current_game = this.dm.games[0]
+  }
+  game_selected(g:Game) {
+    this.current_game = g
+  }
+  getCurrentGame() {
+    if (!this.current_game ) {
+      this.current_game = this.dm.games[0]
+    }
+    return this.current_game
   }
 }
 
